@@ -5,51 +5,48 @@ using UnityEngine;
 public class MorcegoMove : MonoBehaviour
 {
 
-    public float velocidade;
+    public float velocidadeHorizontal;
     public float min;
     public float max;
     public float espera;
-    public float velocidade2 = 1f;
-    public float limite;
-    public float retorno;
+    public float velocidadeVertical = 1f;
 
 
     void Start()
     {
-        StartCoroutine(Move(max));
+        if (Random.Range(0f, 1f) > 0.5f)
+        {
+            StartCoroutine(Move(max));
+        }
+        else
+        {
+            StartCoroutine(Move(min));
+        }
 
     }
 
     IEnumerator Move(float destino)
     {
-        while (Mathf.Abs(destino - transform.localPosition.y) > 0.2f)
+        while (Mathf.Abs(destino - transform.position.y) > 0.2f)
         {
             Vector3 direcao = (destino == max) ? Vector3.up : Vector3.down;
-            Vector3 velocidadeVetorial = direcao * velocidade;
-            transform.localPosition = transform.localPosition + velocidadeVetorial * Time.deltaTime;
+            Vector3 velocidadeVetorial = direcao * velocidadeVertical;
+            transform.position = transform.position + velocidadeVetorial * Time.deltaTime;
             yield return null;
         }
 
         yield return new WaitForSeconds(espera);
 
-            destino = (destino == max) ? min : max;
-            StartCoroutine(Move(destino));
+        destino = (destino == max) ? min : max;
+        StartCoroutine(Move(destino));
 
            
-        }
+    }
 
     void Update()
     {
-
-        Vector3 velocidadeVetorial = Vector3.left * velocidade;
-        transform.position = transform.position + velocidadeVetorial * Time.deltaTime;
-
-        if (transform.position.x <= limite)
-        {
-            transform.position = new Vector3(retorno, transform.position.y, transform.position.z);
-
-        }
-
+        Vector3 velocidadeVetorial = Vector3.left * velocidadeHorizontal;
+        transform.localPosition = transform.localPosition + velocidadeVetorial * Time.deltaTime;
     }
 
 }

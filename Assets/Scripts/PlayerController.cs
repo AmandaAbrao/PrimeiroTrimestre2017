@@ -57,9 +57,10 @@ public class PlayerController : MonoBehaviour {
         {
             if (outro.gameObject.tag == "obstaculo")
             {
+                rb.velocity = Vector3.zero;
                 rb.AddForce(new Vector3(-50f, 20f, 0f), ForceMode.Impulse);
                 rb.detectCollisions = false;
-                anim.Play("morrendo");
+                anim.Play("Morrendo");
                 audioSource.PlayOneShot(somMorte);
                 GameController.instancia.PlayerMorreu();
             }

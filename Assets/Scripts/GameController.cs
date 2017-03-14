@@ -11,7 +11,7 @@ public class GameController : MonoBehaviour {
     public float tempoDestruicao;
     public static GameController instancia = null;
 
-    void Awayke ()
+    void Awake ()
     {
         if (instancia == null)
         {
@@ -30,12 +30,12 @@ public class GameController : MonoBehaviour {
         estado = Estado.AguardandoComecar;
       
 	}
-
+     
     IEnumerator GerarObstaculos()
     {
         while (GameController.instancia.estado == Estado.Jogando)
         {
-            Vector3 pos = new Vector3(3f, Random.Range(0.07f, 0.016f), 0f);
+            Vector3 pos = new Vector3(16.2f, Random.Range(-1f, 4f), 1f);
             GameObject obj = Instantiate(obstaculo, pos, Quaternion.identity) as GameObject;
             Destroy(obj, tempoDestruicao);
             yield return new WaitForSeconds(espera);
